@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
 import Task from './src/components/Task/Task'
 
 export default function App() {
@@ -14,9 +14,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-
+      <Text style={styles.sectionTitle}>Today's to do list 📝</Text>
+      
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's to do list 📝</Text>
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1
@@ -24,7 +24,7 @@ export default function App() {
           style={styles.items}
           keyboardShouldPersistTaps='handled'
         >
-          <View style={styles.items}>
+          {/* <View style={styles.items}> */}
             {
               taskItems.map((item, index) => {
                 return (
@@ -32,12 +32,12 @@ export default function App() {
                 )
               })
             }
-          </View>
-
+          {/* </View> */}
         </ScrollView>
       </View>
 
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
       >
         <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
@@ -46,7 +46,7 @@ export default function App() {
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
 
     </View>
   );
@@ -58,20 +58,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#a3b18a',
   },
   tasksWrapper: {
-    paddingTop: 80,
+    // paddingTop: 80,
     paddingHorizontal: 20,
+    height: '80%'
   },
   sectionTitle: {
+    marginTop: 70,
+    paddingHorizontal: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white'
   },
   items: {
     marginTop: 10,
+    marginBottom: 10,
     maxHeight: '87%',
   },
   writeTaskWrapper: {
-    position: 'absolute',
+    // position: 'absolute',
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
