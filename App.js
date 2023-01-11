@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {  Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
 import Task from './components/Task/Task'
 
 export default function App() {
   const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+  const [taskList, setTaskList] = useState([]);
 
   const addTask = () => {
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
+    setTaskList([...taskList, task])
     setTask(null);
   }
 
@@ -21,7 +21,7 @@ export default function App() {
           style={styles.items}
         >
             {
-              taskItems.map((item, index) => {
+              taskList.map((item, index) => {
                 return (
                   <Task text={item} key={index} />
                 )
@@ -32,12 +32,12 @@ export default function App() {
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
+        style={styles.inputTask}
       >
         <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
         <TouchableOpacity onPress={() => addTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
+          <View style={styles.addButton}>
+            <Text>+</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#a3b18a',
   },
   tasksWrapper: {
-    paddingHorizontal: 20,
     height: '80%'
   },
   sectionTitle: {
@@ -66,8 +65,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     maxHeight: '87%',
+    paddingHorizontal: 20,
   },
-  writeTaskWrapper: {
+  inputTask: {
+    position: 'absolute',
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     width: 250,
   },
-  addWrapper: {
+  addButton: {
     width: 60,
     height: 60,
     backgroundColor: '#FFF',
@@ -92,6 +93,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#588157',
     borderWidth: 2,
-  },
-  addText: {},
+  }
 });

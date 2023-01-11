@@ -69,7 +69,9 @@ import { View, Text, StyleSheet } from 'react-native';
 ### 💻 File template
 In React/React Native, the simplest way to define a component is to write a JavaScript function. 
 
-The main Task component will be written in a Javascript anonymous function which will return a React Native element. This function will accept a single "props" (short for properties) object argument that will hold data and can be used in this file. 
+The main Task component will be written in a Javascript anonymous function which will return a React Native element. 
+
+This function will accept a single "props" (short for properties) object argument that will hold data and can be used in this file. This makes the component customized when it is created using different parameters called props. This lets you make a single component that is used in many different places in your app, with slightly different properties in each place. You can use these props by calling `props.<your-prop-name>`.
     
 Copy and past this template into your `Task.js` file:
 
@@ -115,6 +117,8 @@ When you complete a task, you'll want a way to check it off! [We'll be using the
 1. Install `expo-checkbox` by running `npx expo install expo-checkbox` in your terminal.
 2. Add this import to the top of your file: `import Checkbox from 'expo-checkbox';`
 
+<br />
+
 ### 🧠🧠🧠
 The `useState` hook lets you add React state to function components.
   
@@ -143,6 +147,8 @@ const Example = (props) => {
     
 This would increment the `count` variable by 1 every time the button is clicked.
 ### 🧠🧠🧠
+
+<br />
 
 Similarly, We'll use the `useState` hook to check if the checkbox is selected or not. 
 
@@ -174,7 +180,7 @@ const Task = (props) => {
             onValueChange={setSelection}
             color='#3a5a40'
             />
-            # OPTIONAL: you can add a strikethrough in the text when the checkbox is selected 
+            // OPTIONAL: you can add a strikethrough in the text when the checkbox is selected 
         <Text style={{textDecorationLine: isSelected ? "line-through" : "none" }}>{props.text}</Text>
         </View>
     </View>
@@ -284,97 +290,179 @@ Play around with the stylings and add them to your code.
     export default Task;
 </details>
 
+
+<br />
+
 ## 📍 Building the main screen
+We'll be using the `App.js` file as our main screen file. On the main screen, we have three components to add:
+1. The title
+2. The input bar
+3. The container that will hold all the tasks as they are inputted
+
+## 💻 Key imports
+Similar to `Task.js`, we'll want to import the `useState` hook from `React` and a few components from `react-native`. 
+```javascript
+import React, { useState } from 'react';
+import {  Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
+```
+
+Finally, we'll also want to import the `Task` component we created.
+
+```javascript
+import Task from './components/Task/Task'
+```
+
 ### 💻 Adding a title
-tt
+Inside the `View` component, replace the default text with the title you want to put for your to do list:
+
+```javascript
+<Text>Today's to do list 📝</Text>
+```
+
+> At this point, you can also remove the default `StatusBar` in the `View`.
+
 ### 💻 Creating the input bar
-tt
-### 💻 Putting the tasks on the screen
-tt
-### 🖍️ Stylesheet
-    ttt
-    
-### ✅ Final App.js file
+We'll be using the `useState` hook again here with the `TextInput` component to store the value that you enter for a task. We'll keep the default state as `null`.
+
+Add 
+```javascript
+const [task, setTask] = useState();
+```
+above the return statement.
+
+> Note: anytime you create a function or hooks, they must go above your return statement!
+
+The input bar is made up of the `TextInput` and a button which will add the task to list of all the inputted tasks.
+
+Add a `TextInput` with the following props: `placeholder`, `value` and `onChangeText`. 
+
+The `onChangeText` is a callback function that is called when the text input's text changes. We use that text to update the state of the variable `task`. 
+
+It should look something like this:
+```javascript
+<TextInput placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+```
+
+Next, we'll use the `TouchableOpacity` component which has an `onPress` prop. When the button is pressed/clicked, we can call a function that we will make called `addTask`. The goal of this function is to add the input to a list of tasks. 
+
+```javascript
+<TouchableOpacity onPress={() => addTask()}>
+    <View>
+        <Text>+</Text>
+    </View>
+</TouchableOpacity>
+```
+
+For the `addTask` function, we'll create another `useState` hook to store a list and add the default state as an empty array.
+
+```javascript
+const [taskList, setTaskList] = useState([]);
+```
+
+The `addTask` function will:
+1. Dismiss the keyboard that was opens upon tapping the input bar. (`Keyboard.dismiss()`)
+2. Use the `setTaskList` function to add the `task` to the `taskList`.
+3. Use the `setTask` function to reset the `task` variable to `null`.
+
+To add to an array, you can 'spread' the current values and append the new task to the end like so `[...currList, newItem]`.
+
+The `addTask` function should look like this:
+
+```javascript
+const addTask = () => {
+    Keyboard.dismiss();
+    setTaskList([...taskList, task])
+    setTask(null);
+}
+```
+
 <details>
-    <summary>Answer</summary>
-    
-    import React, { useState } from 'react';
-    import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
-    import Task from './components/Task/Task'
+    <summary>Input Bar code</summary>
 
     export default function App() {
-      const [task, setTask] = useState();
-      const [taskItems, setTaskItems] = useState([]);
+        const [task, setTask] = useState();
+        const [taskList, setTaskList] = useState([]);
 
-      const addTask = () => {
-        Keyboard.dismiss();
-        setTaskItems([...taskItems, task])
-        setTask(null);
-      }
+        const addTask = () => {
+            Keyboard.dismiss();
+            setTaskList([...taskList, task])
+            setTask(null);
+        }
 
-      return (
-        <View style={styles.container}>
-          <Text style={styles.sectionTitle}>Today's to do list 📝</Text>
+        return (
+            <View style={styles.container}>
+                <Text>Today's to do list 📝</Text>
 
-          <View style={styles.tasksWrapper}>
-            <ScrollView
-              style={styles.items}
-            >
-                {
-                  taskItems.map((item, index) => {
-                    return (
-                      <Task text={item} key={index} />
-                    )
-                  })
-                }
-            </ScrollView>
-          </View>
+                 <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                >
+                    <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+                    <TouchableOpacity onPress={() => addTask()}>
+                        <View style={styles.addButton}>
+                            <Text>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
+            </View>
+        );
+        }
+</details>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.writeTaskWrapper}
-          >
-            <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-            <TouchableOpacity onPress={() => addTask()}>
-              <View style={styles.addWrapper}>
-                <Text style={styles.addText}>+</Text>
-              </View>
-            </TouchableOpacity>
-          </KeyboardAvoidingView>
+### 💻 Putting the tasks on the screen
+The last piece of code is to add all the tasks from the task list on the screen.
 
-        </View>
-      );
-    }
+We'll use the `ScrollView` component to add a scroll in case the to do list gets too big and the `Task` component we created above.
 
-    const styles = StyleSheet.create({
-      container: {
+Using the `taskList` and the javascript map function, we can iterate through each item on the list and create a `Task` component for it like this:
+
+```javascript
+<View>
+    <ScrollView>
+        {
+            taskList.map((item) => {
+                return (
+                    <Task text={item} />
+                )
+            })
+        }
+    </ScrollView>
+</View>
+```
+
+### 🖍️ Stylesheet
+Now, you can add your styles!
+
+```javascript
+const styles = StyleSheet.create({
+    container: {
         flex: 1,
         backgroundColor: '#a3b18a',
-      },
-      tasksWrapper: {
-        paddingHorizontal: 20,
+    },
+    tasksWrapper: {
         height: '80%'
-      },
-      sectionTitle: {
+    },
+    sectionTitle: {
         marginTop: 70,
         paddingHorizontal: 20,
         fontSize: 24,
         fontWeight: 'bold',
         color: 'white'
-      },
-      items: {
+    },
+    items: {
         marginTop: 10,
         marginBottom: 10,
         maxHeight: '87%',
-      },
-      writeTaskWrapper: {
+        paddingHorizontal: 20,
+    },
+    inputTask: {
+        position: 'absolute',
         bottom: 60,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center'
-      },
-      input: {
+    },
+    input: {
         paddingVertical: 15,
         paddingHorizontal: 15,
         backgroundColor: '#FFF',
@@ -382,8 +470,8 @@ tt
         borderColor: '#588157',
         borderWidth: 2,
         width: 250,
-      },
-      addWrapper: {
+    },
+    addButton: {
         width: 60,
         height: 60,
         backgroundColor: '#FFF',
@@ -392,7 +480,113 @@ tt
         alignItems: 'center',
         borderColor: '#588157',
         borderWidth: 2,
-      },
-      addText: {},
-    });     
+    }
+});
+```
+    
+### ✅ Final App.js file
+<details>
+    <summary>Answer</summary>
+    
+    import React, { useState } from 'react';
+    import {  Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
+    import Task from './components/Task/Task'
+
+    export default function App() {
+        const [task, setTask] = useState();
+        const [taskList, setTaskList] = useState([]);
+
+        const addTask = () => {
+            Keyboard.dismiss();
+            setTaskList([...taskList, task])
+            setTask(null);
+        }
+
+        return (
+            <View style={styles.container}>
+                <Text style={styles.sectionTitle}>Today's to do list 📝</Text>
+            
+                <View style={styles.tasksWrapper}>
+                    <ScrollView
+                    style={styles.items}
+                    >
+                        {
+                            taskList.map((item, index) => {
+                                return (
+                                    <Task text={item} key={index} />
+                                )
+                            })
+                        }
+                    </ScrollView>
+                </View>
+
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    style={styles.inputTask}
+                >
+                    <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+                    <TouchableOpacity onPress={() => addTask()}>
+                    <View style={styles.addButton}>
+                        <Text>+</Text>
+                    </View>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
+
+            </View>
+        );
+    }
+
+    const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#a3b18a',
+    },
+    tasksWrapper: {
+        height: '80%'
+    },
+    sectionTitle: {
+        marginTop: 70,
+        paddingHorizontal: 20,
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    items: {
+        marginTop: 10,
+        marginBottom: 10,
+        maxHeight: '87%',
+        paddingHorizontal: 20,
+    },
+    inputTask: {
+        position: 'absolute',
+        bottom: 60,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    input: {
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#FFF',
+        borderRadius: 60,
+        borderColor: '#588157',
+        borderWidth: 2,
+        width: 250,
+    },
+    addButton: {
+        width: 60,
+        height: 60,
+        backgroundColor: '#FFF',
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#588157',
+        borderWidth: 2,
+    }
+    });   
 </details>
+
+## Congrats!! You have made your first mobile app using React Native and Expo 🥳
+
+Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/sanaasy/)!! 
