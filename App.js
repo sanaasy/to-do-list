@@ -6,7 +6,7 @@ export default function App() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
-  const handleAddTask = () => {
+  const addTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task])
     setTask(null);
@@ -18,11 +18,11 @@ export default function App() {
       
       <View style={styles.tasksWrapper}>
         <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1
-          }}
+          // contentContainerStyle={{
+          //   flexGrow: 1
+          // }}
           style={styles.items}
-          keyboardShouldPersistTaps='handled'
+          // keyboardShouldPersistTaps='handled'
         >
           {/* <View style={styles.items}> */}
             {
@@ -41,7 +41,7 @@ export default function App() {
         style={styles.writeTaskWrapper}
       >
         <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPress={() => addTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
