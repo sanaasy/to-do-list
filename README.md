@@ -2,7 +2,7 @@
 > By Sanaa Syed ([LinkedIn](https://www.linkedin.com/in/sanaasy/))
 
 
-<img src='assets/inaction.gif' width=250 style='display: block; margin: auto;' /> 
+<p align="center" width="100%"><img src='assets/inaction.gif' width=250 /></p>
 
 ### FOR THIS WORKSHOP, YOU WILL NEED:
 - an IDE (I recommend VS Code)
@@ -23,7 +23,8 @@ Once you've successfully set up your Expo CLI and have downloaded the Expo Go ap
 
 1. Create a project named <your-name>-to-do-list by running the command `npx create-expo-app <your-name>-to-do-list` in your terminal. (Make sure to do this in a location on your computer that you can find easily later on!)
     > You should see something like this when your project has been created:
-    <img src='assets/setupexpoproject.png' width=250 style='display: block; margin: auto;' /> 
+<p align="center" width="100%"><img src='assets/setupexpoproject.png' width=450 /></p> 
+
 2. Navigate to the project directory using `cd <you-name>-to-do-list`.
 
 ## Starting your development server
@@ -31,13 +32,26 @@ Once you've successfully set up your Expo CLI and have downloaded the Expo Go ap
 2. For Android users, press "Scan QR Code" on the "Home" tab of the Expo Go app and scan the QR code you see in the terminal. For Apple users, open the default Apple "Camera" app and scan the QR code you see in the terminal.
 
 Once you see a screen that shows up like this, you're ready to start building! 🥳
-<img src='assets/initialexpo.png' width=150 style='display: block; margin: auto;' /> 
+<p align="center" width="100%"><img src='assets/initialexpo.png' width=200 /></p>
 
-> You can play around with the code in the `App.js` if you want to get more familiar with how React Native apps are set up.
+> You can play around with the code in the `App.js` file if you want to get more familiar with how React Native apps are set up. Add some text, 
 
 ## Building the task component
+### Key imports from `react`
 
+### Key imports from `react-native`
 
-## Putting the tasks on the screen
+### Props
 
-## Building the input bar
+### Building a checkbox 
+
+### Stylesheet
+
+## Building the main screen
+### Adding a title
+
+### Creating the input bar
+
+### Putting the tasks on the screen
+
+### Stylesheet
