@@ -106,7 +106,7 @@ Use the `View` and `Text` components imported from `react-native` to create a Te
 ### Building a checkbox 
 When you complete a task, you'll want a way to check it off! [We'll be using the `Checkbox` component from the `expo-checkbox` library](https://docs.expo.dev/versions/latest/sdk/checkbox/).
   
-1. Installe `expo-checkbox` by running `npx expo install expo-checkbox` in your terminal.
+1. Install `expo-checkbox` by running `npx expo install expo-checkbox` in your terminal.
 2. Add this import to the top of your file: `import Checkbox from 'expo-checkbox';`
 
 The `useState` hook lets you add React state to function components.
@@ -136,15 +136,17 @@ This code basically says that the variable `count` has a default value of 0 (`co
     
 This would increment the `count` variable by 1 every time the button is clicked.
 
+
 Similarly, We'll use the `useState` hook to check if the checkbox is selected or not. 
 
-Add `const [isSelected, setSelection] = useState(false);` right before your return statement in the `Task` function.
-    
-Next, using the `Checkbox` component, we can add
 
-`<Checkbox value={isSelected} onValueChange={setSelection} color='#3a5a40' />`
+1. Add 
+    `const [isSelected, setSelection] = useState(false);`
+   right before your return statement in the `Task` function.  
+2. Next, using the `Checkbox` component, we can add 
+    `<Checkbox value={isSelected} onValueChange={setSelection} color='#3a5a40' />`
+   right before the `Text` component.
 
- right before the `Text` component.
 
 The `Checkbox` component handles the use of hook for us so we don't have to worry about anything else!
     
