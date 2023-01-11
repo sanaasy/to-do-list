@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
-import Task from './src/components/Task/Task'
+import Task from './components/Task/Task'
 
 export default function App() {
   const [task, setTask] = useState();
@@ -18,13 +18,8 @@ export default function App() {
       
       <View style={styles.tasksWrapper}>
         <ScrollView
-          // contentContainerStyle={{
-          //   flexGrow: 1
-          // }}
           style={styles.items}
-          // keyboardShouldPersistTaps='handled'
         >
-          {/* <View style={styles.items}> */}
             {
               taskItems.map((item, index) => {
                 return (
@@ -32,7 +27,6 @@ export default function App() {
                 )
               })
             }
-          {/* </View> */}
         </ScrollView>
       </View>
 
@@ -58,7 +52,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#a3b18a',
   },
   tasksWrapper: {
-    // paddingTop: 80,
     paddingHorizontal: 20,
     height: '80%'
   },
@@ -75,7 +68,6 @@ const styles = StyleSheet.create({
     maxHeight: '87%',
   },
   writeTaskWrapper: {
-    // position: 'absolute',
     bottom: 60,
     width: '100%',
     flexDirection: 'row',
