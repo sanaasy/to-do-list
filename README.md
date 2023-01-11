@@ -81,13 +81,13 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const Task = (props) => {
     return (
-    <View>
+        <View>
 
-    </View>
+        </View>
     )
 }
 
-# We export the Task component so that we can later use it in the App.js file!
+// We export the Task component so that we can later use it in the App.js file!
 export default Task;
 ```
 
