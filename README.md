@@ -342,8 +342,20 @@ It should look something like this:
 ```javascript
 <TextInput placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
 ```
+    
+As we've done with the `Task` component, we must wrap this text input in a view! However, this time we'll use a different view component called `KeyboardAvoidingView`. This is so that the text input component's position and height on the screen will be automatically based on the keyboard height to remain visible while the virtual keyboard is displayed.
+    
+Wrap the `TextInput` with this:
+    
+```javascript
+<KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+>
+    <TextInput placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+</KeyboardAvoidingView>
+```
 
-Next, we'll use the `TouchableOpacity` component which has an `onPress` prop. When the button is pressed/clicked, we can call a function that we will make called `addTask`. The goal of this function is to add the input to a list of tasks. 
+Next, we'll use the `TouchableOpacity` component which has an `onPress` prop. This component is a button but has the additional functionality of dimming the opacity of the button when it is clicked. When the button is pressed/clicked, we can call a function that we will make called `addTask`. The goal of this function is to add the input to a list of tasks. 
 
 ```javascript
 <TouchableOpacity onPress={() => addTask()}>
@@ -395,10 +407,10 @@ const addTask = () => {
 
                  <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                >
-                    <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+                 >
+                    <TextInput placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
                     <TouchableOpacity onPress={() => addTask()}>
-                        <View style={styles.addButton}>
+                        <View>
                             <Text>+</Text>
                         </View>
                     </TouchableOpacity>
