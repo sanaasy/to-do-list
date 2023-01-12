@@ -181,7 +181,7 @@ const Task = (props) => {
             color='#3a5a40'
             />
             // OPTIONAL: you can add a strikethrough in the text when the checkbox is selected 
-        <Text style={{textDecorationLine: isSelected ? "line-through" : "none" }}>{props.text}</Text>
+            <Text style={{textDecorationLine: isSelected ? "line-through" : "none" }}>{props.text}</Text>
         </View>
     </View>
     )
@@ -254,7 +254,7 @@ Play around with the stylings and add them to your code.
                 color='#3a5a40'
                 style={styles.checkbox}
                 />
-            <Text style={{ ...styles.taskText, textDecorationLine: isSelected ? "line-through" : "none" }}>{props.text}</Text>
+                <Text style={{ ...styles.taskText, textDecorationLine: isSelected ? "line-through" : "none" }}>{props.text}</Text>
             </View>
         </View>
         )
