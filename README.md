@@ -16,6 +16,7 @@ Follow the steps [here](https://docs.expo.dev/get-started/installation/) to inst
 1. macOS and Linux users need to download [Watchman](https://facebook.github.io/watchman/docs/install#buildinstall)
 2. Open your terminal and create an expo account using the command `npx expo register` (if you already have an expo account use `npx expo login`)
 3. Download the Expo Go App on your phone
+    
 You're good to go! 🤩
 
 ## 📍 Setting up your expo project
@@ -66,6 +67,8 @@ Next, import the `View`, `Text` and `StyleSheet` components from `react-native`.
 import { View, Text, StyleSheet } from 'react-native';
 ```
     
+The `View` component creates a container. You can use it to encapsulate any component and to create a 'section' of code on the page.
+    
 ### 💻 File template
 In React/React Native, the simplest way to define a component is to write a JavaScript function. 
 
@@ -87,7 +90,7 @@ const Task = (props) => {
     )
 }
 
-// We export the Task component so that we can later use it in the App.js file!
+// We need to export the Task component so that we can later use it in the App.js file!
 export default Task;
 ```
 
@@ -95,6 +98,8 @@ A call to the `Task` component would look like
 ```javascript
 <Task text='Attend workshop at CUSEC!' />
 ```
+    
+where the props we pass in is the text. We can then access this prop in our Task function by calling `props.text`.
 
 ### 💻 Adding text to the Task
 Using the props defined at the beginning of the Task function, we can add text to our task now. We'll be passing in a `text` attribute as the props from the `App.js` file later in this workshop. To call it in this file, it would look like: `props.text`.
@@ -600,5 +605,7 @@ const styles = StyleSheet.create({
 </details>
 
 ## Congrats!! You have made your first mobile app using React Native and Expo 🥳
+
+All the code can be found in this repository.
 
 Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/sanaasy/)!! 
